@@ -113,6 +113,7 @@
       email:
         from: from@gmail.com
         to: to@gmail.com
+      host: dev.localhost.localdomain
 
     production:
       db:
@@ -121,7 +122,7 @@
       email:
         from: from@gmail.com
         to: to@gmail.com
-      host: dev.localhost.localdomain
+      host: prod.localhost.localdomain
 
     ```
 
@@ -138,6 +139,45 @@
     config.action_mailer.default_url_options = { host: "#{Rails.application.credentials[Rails.env.to_sym][:host]}" }
     ```
 
-# Changes
+## Changes - simple_form & action-mailer with action-job & delayed_job
 
 * https://github.com/charlietag/test_rails_delayedjob_mailer_simpleform/compare/v0.0.0...master
+
+## Try rails custom rake task
+
+* Reference
+  * https://guides.rubyonrails.org/command_line.html#custom-rake-tasks
+
+* Generate task
+
+  ```
+  $ bin/rails g task ShowMyName display
+  Running via Spring preloader in process 26702
+        create  lib/tasks/show_my_name.rake
+  ```
+
+* Edit task
+  * `lib/tasks/show_my_name.rake`
+
+    ```
+    namespace :show_my_name do
+      desc "Display hostname"
+      task display: :environment do
+        puts "URL for action mailer: " + Rails.application.config.action_mailer.default_url_options[:host]
+        puts "HOSTNAME: "+ %x{hostname}
+      end
+    end
+    ```
+
+* Execute task
+  * `RAILS_ENV=production bin/rails show_my_name:display`
+
+    ```
+    $ RAILS_ENV=production bl show_my_name:display
+    URL for action mailer: prod.localhost.localdomain
+    HOSTNAME: dev.localhost.localdomain
+    ```
+
+## Changes - rake tasks
+  * https://github.com/charlietag/test_rails_delayedjob_mailer_simpleform/compare/v0.0.1...master
+
