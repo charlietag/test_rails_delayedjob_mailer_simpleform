@@ -179,5 +179,5 @@
     ```
 
 ## Changes - rake tasks
-  * https://github.com/charlietag/test_rails_delayedjob_mailer_simpleform/compare/v0.0.1...master
+  * https://github.com/charlietag/test_rails_delayedjob_mailer_simpleform/commit/ea42ff419defd780f896033d9f5428a21a0ac907
 
